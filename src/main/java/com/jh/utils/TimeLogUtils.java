@@ -225,7 +225,7 @@ public class TimeLogUtils {
         if (timeNode == null) {
             return "未记录";
         }
-        stringBuilder.append("耗时统计:\r");
+        stringBuilder.append("耗时统计:\n");
         List<Long> longs = smartConsumingMillils1(timeNode);
         for (int i = longs.size() - 1; i >= 0; i--) {
             stringBuilder.append("第 ")
@@ -248,7 +248,7 @@ public class TimeLogUtils {
         if (timeNode == null) {
             return "未记录";
         }
-        stringBuilder.append("耗时统计:\r");
+        stringBuilder.append("耗时统计:\n");
         List<Long> longs = smartConsumingMillils1(timeNode);
         for (int i = longs.size() - 1; i >= 0; i--) {
             stringBuilder.append("第 ")
@@ -271,7 +271,8 @@ public class TimeLogUtils {
         if (timeNode == null) {
             return "未记录";
         }
-        stringBuilder.append("耗时统计:\r");
+        stringBuilder.append(mark)
+                .append("耗时统计:\n");
         List<Long> longs = smartConsumingMillils1(timeNode);
         for (int i = longs.size() - 1; i >= 0; i--) {
             stringBuilder.append("第 ")
@@ -294,7 +295,8 @@ public class TimeLogUtils {
         if (timeNode == null) {
             return "未记录";
         }
-        stringBuilder.append("耗时统计:\r");
+        stringBuilder.append(mark)
+                .append("耗时统计:\n");
         List<Long> longs = smartConsumingMillils1(timeNode);
         for (int i = longs.size() - 1; i >= 0; i--) {
             stringBuilder.append("第 ")
