@@ -20,6 +20,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
+
 /**
  * @author tangjianghua
  * @date 2020/3/12
@@ -30,8 +31,11 @@ public class InstallCert {
     public static void main(String[] args) throws Exception {
         //这里填写需要添加的域名和密码,changeit是java证书修改的默认密码
         String doMain = "oss.sonatype.org";
-        String filePath = "jssecacerts";
-        args = new String[]{doMain,"changeit"};
+        //这里填生成的证书路径
+        String filePath = "D:/";
+        String fileName = "jssecacerts";
+        filePath +=fileName;
+        args = new String[]{doMain, "changeit"};
         String host;
         int port;
         char[] passphrase;
@@ -46,14 +50,11 @@ public class InstallCert {
             return;
         }
 
-        File file = new File("jssecacerts");
+        File dir = new File(System.getProperty("java.home") + File.separatorChar + "lib"
+                + File.separatorChar + "security");
+        File file = new File(dir, fileName);
         if (file.isFile() == false) {
-            File dir = new File(System.getProperty("java.home") + File.separatorChar + "lib"
-                    + File.separatorChar + "security");
-            file = new File(dir, "jssecacerts");
-            if (file.isFile() == false) {
-                file = new File(dir, "cacerts");
-            }
+            file = new File(dir, "cacerts");
         }
         System.out.println("Loading KeyStore " + file + "...");
         InputStream in = new FileInputStream(file);
@@ -68,7 +69,7 @@ public class InstallCert {
         X509TrustManager defaultTrustManager = (X509TrustManager) tmf
                 .getTrustManagers()[0];
         SavingTrustManager tm = new SavingTrustManager(defaultTrustManager);
-        context.init(null, new TrustManager[] { tm }, null);
+        context.init(null, new TrustManager[]{tm}, null);
         SSLSocketFactory factory = context.getSocketFactory();
 
         System.out.println("Opening connection to " + host + ":" + port + "...");
@@ -132,8 +133,8 @@ public class InstallCert {
         System.out.println();
         System.out.println(cert);
         System.out.println();
-        System.out.println("Added certificate to keystore 'jssecacerts' using alias '"
-                        + alias + "'");
+        System.out.println("Added certificate to keystore '"+fileName+"' using alias '"
+                + alias + "'");
     }
 
     private static final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
@@ -162,11 +163,13 @@ public class InstallCert {
         public X509Certificate[] getAcceptedIssuers() {
             throw new UnsupportedOperationException();
         }
+
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType)
                 throws CertificateException {
             throw new UnsupportedOperationException();
         }
+
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType)
                 throws CertificateException {
