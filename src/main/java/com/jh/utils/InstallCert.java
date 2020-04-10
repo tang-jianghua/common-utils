@@ -30,7 +30,13 @@ public class InstallCert {
 
     public static void main(String[] args) throws Exception {
         //这里填写需要添加的域名和密码,changeit是java证书修改的默认密码
-        String doMain = "oss.sonatype.org";
+//        String doMain = "oss.sonatype.org";
+//        String doMain = "plugins.gradle.org";
+//        String doMain = "d29vzk4ow07wi7.cloudfront.net";
+        String doMain = "plugins.gradle.org";
+//        String doMain = "s3.amazonaws.com";
+//        String doMain = "repo1.maven.org";
+//        String doMain = "www.springframework.org";
         //这里填生成的证书路径
         String filePath = "D:/";
         String fileName = "jssecacerts";
