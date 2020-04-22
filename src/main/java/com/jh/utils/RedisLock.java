@@ -7,7 +7,6 @@ package com.jh.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -55,9 +54,9 @@ public class RedisLock implements Lock {
      */
     private final TimeUnit DEFAILT_UNIT = TimeUnit.MILLISECONDS;
 
-    public RedisLock(String key) {
+    public RedisLock(RedisOperations redisOperations,String key) {
         this.key = key;
-        redisOperations =ApplicationContextKeeper.getAppCtx().getBean(RedisTemplate.class);
+        this.redisOperations =redisOperations;
     }
 
     @Override
