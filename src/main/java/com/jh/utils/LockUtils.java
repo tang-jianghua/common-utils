@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. 网联客（北京）科技有限公司 All rights reserved.
+ * Copyright (c) 2019. 唐江华 保留所有权。
  */
 
 package com.jh.utils;

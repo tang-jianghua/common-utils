@@ -33,7 +33,12 @@ public class InstallCert {
 //        String doMain = "oss.sonatype.org";
 //        String doMain = "plugins.gradle.org";
 //        String doMain = "d29vzk4ow07wi7.cloudfront.net";
-        String doMain = "plugins.gradle.org";
+//        String doMain = "repo.maven.apache.org";
+//        String doMain = "plugins-artifacts.gradle.org";
+//        String doMain = "maven.aliyun.com";
+        String doMain = "aip.baidubce.com";
+//        String doMain = "d29vzk4ow07wi7.cloudfront.net";
+//        String doMain = "plugins.gradle.o1rg";
 //        String doMain = "s3.amazonaws.com";
 //        String doMain = "repo1.maven.org";
 //        String doMain = "www.springframework.org";
