@@ -35,7 +35,12 @@ public class RedisLock implements Lock {
     /**
      * 获取锁的最大尝试次数
      */
-    private final int MAXTRY = 10;
+    private int maxtry;
+
+    /**
+     * 默认获取锁的最大尝试次数
+     */
+    private static final int DEFUALT_MAXTRY=10;
 
     /**
      * 获取锁状态
@@ -57,6 +62,21 @@ public class RedisLock implements Lock {
     public RedisLock(RedisOperations redisOperations,String key) {
         this.key = key;
         this.redisOperations =redisOperations;
+        maxtry=DEFUALT_MAXTRY;
+    }
+
+    /**
+     * 设置最大尝试次数
+     * @param maxtry
+     */
+    public void setMaxtry(int maxtry) {
+        if(maxtry<1){
+            maxtry=1;
+        }
+        if(maxtry > DEFUALT_MAXTRY){
+            maxtry = DEFUALT_MAXTRY;
+        }
+        this.maxtry = maxtry;
     }
 
     @Override
@@ -87,7 +107,7 @@ public class RedisLock implements Lock {
                 logger.info("线程"+Thread.currentThread().getId()+"--获取到锁--"+key);
                 break;
             }
-        }while (i < MAXTRY);
+        }while (i < maxtry);
         return lock;
     }
 
@@ -102,12 +122,17 @@ public class RedisLock implements Lock {
         if(!tryLock()){
             return false;
         }
-        Boolean aBoolean = redisOperations.expire(key, time, unit);
+        Boolean aBoolean = false;
+        try {
+            logger.info("线程"+Thread.currentThread().getId()+"--为锁添加超时--"+key+"--"+time+"--"+unit.name());
+            aBoolean = redisOperations.expire(key, time, unit);
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+        }
         if(!aBoolean){
             unlock();
         }
-        logger.info("线程"+Thread.currentThread().getId()+"--为锁添加超时--"+key+"--"+time+"--"+unit.name());
-        return aBoolean;
+        return this.lock;
     }
 
 
@@ -143,3 +168,4 @@ public class RedisLock implements Lock {
         return null;
     }
 }
+
