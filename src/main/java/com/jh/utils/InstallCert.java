@@ -36,7 +36,8 @@ public class InstallCert {
 //        String doMain = "repo.maven.apache.org";
 //        String doMain = "plugins-artifacts.gradle.org";
 //        String doMain = "maven.aliyun.com";
-        String doMain = "aip.baidubce.com";
+        String doMain = "download.jetbrains.com";
+//        String doMain = "aip.baidubce.com";
 //        String doMain = "d29vzk4ow07wi7.cloudfront.net";
 //        String doMain = "plugins.gradle.o1rg";
 //        String doMain = "s3.amazonaws.com";
